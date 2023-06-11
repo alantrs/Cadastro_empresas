@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresas Cadastradas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        thead {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            margin-right: 10px;
+        }
+
+        .back-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Empresas Cadastradas</h1>
+
+    <div class="search-input-group">
+        <div class="search-icon">&#128269;</div>
+        <input type="text" id="search-cnpj-input" class="search-input" placeholder="Digite o CNPJ da empresa">
+        <button id="search-cnpj-button" class="search-button">&#128269;</button>
+        <button id="back-cnpj-button" class="back-button d-none">Voltar</button>
+    </div>
+    <p id="error-message-cnpj" class="text-danger"></p>
+
+    <div class="search-input-group">
+        <div class="search-icon">&#128269;</div>
+        <input type="text" id="search-name-input" class="search-input" placeholder="Digite a Razão social da empresa">
+        <button id="search-name-button" class="search-button">&#128269;</button>
+        <button id="back-name-button" class="back-button d-none">Voltar</button>
+    </div>
+    <p id="error-message-name" class="text-danger"></p>
+
+    <table id="empresas-table">
+        <thead>
+        <tr>
+            <th>CNPJ</th>
+            <th>Razão Social</th>
+        </tr>
+        </thead>
+        <tbody id="empresas-body"></tbody>
+    </table>
+
+    <div id="empresa-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <div id="empresa-modal-body"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="empresas.js"></script>
+</body>
+
+</html>
