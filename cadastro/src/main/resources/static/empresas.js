@@ -50,27 +50,30 @@ function exibirDadosEmpresa(cnpj) {
       const modalBody = document.getElementById('empresa-modal-body');
       modalBody.innerHTML = '';
 
-      for (const key in empresa) {
-        if (key === 'qsa') {
-          const qsaItems = empresa.qsa.map(qsaItem => {
-            let qsaHtml = '';
-            for (const qsaKey in qsaItem) {
-              qsaHtml += `<strong>${qsaKey}:</strong> ${qsaItem[qsaKey]} `;
+      const orderedKeys = Object.keys(empresa).sort(); // Ordena as chaves do objeto
+
+      for (const key of orderedKeys) {
+        const value = empresa[key];
+        if (value !== null && value !== "") {
+          if (Array.isArray(value)) {
+            // Trata arrays especiais (qsa, cnaes_secundarios)
+            if (value.length > 0) {
+              modalBody.innerHTML += `<h5>${key}:</h5>`;
+              value.forEach(item => {
+                let itemHtml = '';
+                for (const itemKey in item) {
+                  const itemValue = item[itemKey];
+                  if (itemValue !== null && itemValue !== "") {
+                    itemHtml += `<strong>${itemKey}:</strong> ${itemValue} `;
+                  }
+                }
+                modalBody.innerHTML += `<p>${itemHtml}</p>`;
+              });
             }
-            return `<p>${qsaHtml}</p>`;
-          });
-          modalBody.innerHTML += '<h5>QSA:</h5>' + qsaItems.join('');
-        } else if (key === 'cnaes_secundarios') {
-          const cnaeItems = empresa.cnaes_secundarios.map(cnaeItem => {
-            let cnaeHtml = '';
-            for (const cnaeKey in cnaeItem) {
-              cnaeHtml += `<strong>${cnaeKey}:</strong> ${cnaeItem[cnaeKey]} `;
-            }
-            return `<p>${cnaeHtml}</p>`;
-          });
-          modalBody.innerHTML += '<h5>CNAEs Secundários:</h5>' + cnaeItems.join('');
-        } else {
-          modalBody.innerHTML += `<p><strong>${key}:</strong> ${empresa[key]}</p>`;
+          } else {
+            // Trata os demais campos
+            modalBody.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+          }
         }
       }
 
@@ -81,6 +84,7 @@ function exibirDadosEmpresa(cnpj) {
       console.error('Erro ao obter detalhes da empresa:', error);
     });
 }
+
 
 function searchEmpresasByCnpj() {
   const searchCnpjInput = document.getElementById('search-cnpj-input');
@@ -189,7 +193,6 @@ function searchEmpresasByRazaoSocial() {
   }
 }
 
-
 function voltarPesquisa() {
   const searchCnpjInput = document.getElementById('search-cnpj-input');
   const searchNameInput = document.getElementById('search-name-input');
@@ -209,6 +212,9 @@ function fecharModal() {
   const modal = document.getElementById('empresa-modal');
   modal.style.display = 'none';
 }
+function redirecionarParaCadastro() {
+    window.location.href = 'cadastro.html';
+  }
 
 document.addEventListener('DOMContentLoaded', () => {
   carregarEmpresas();
@@ -227,4 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const modalCloseButton = document.getElementsByClassName('modal-close-button')[0];
   modalCloseButton.addEventListener('click', fecharModal);
+
+  const cadastrarButton = document.getElementById('cadastrar-button');
+  cadastrarButton.addEventListener('click', redirecionarParaCadastro);
 });

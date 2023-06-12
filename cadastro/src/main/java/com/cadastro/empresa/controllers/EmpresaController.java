@@ -5,6 +5,7 @@ import com.cadastro.empresa.models.Empresa;
 import com.cadastro.empresa.models.Qsa;
 import com.cadastro.empresa.repository.EmpresaRepository;
 import com.cadastro.empresa.services.CnpjService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -21,6 +22,10 @@ public class EmpresaController {
     }
     @PostMapping
     public ResponseEntity<Empresa> cadastrarEmpresa(@RequestBody String cnpj) {
+        boolean empresaExists = empresaRepository.existsByCnpj(cnpj);
+        if (empresaExists) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Retorna um código de status de conflito (409)
+        }
         Empresa empresa = cnpjService.consultarCnpj(cnpj);
 
         for (Qsa qsa : empresa.getQsa()) {
@@ -33,6 +38,7 @@ public class EmpresaController {
         Empresa empresaSalva = empresaRepository.save(empresa);
         return ResponseEntity.ok(empresaSalva);
     }
+
 
     @GetMapping("/cnpj/{cnpj}")
     public ResponseEntity<Empresa> buscarEmpresaPorCnpj(@PathVariable ("cnpj") String cnpj) {

@@ -3,7 +3,12 @@ function cadastrarEmpresa() {
   const cnpj = cnpjInput.value;
 
   fetch(`empresas/confirmarEmpresa?cnpj=${cnpj}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Insira um cnpj válido');
+      }
+      return response.json();
+    })
     .then(empresa => {
       const detalhesEmpresa = document.getElementById('detalhes-empresa');
       detalhesEmpresa.innerHTML = '';
@@ -31,20 +36,36 @@ function cadastrarEmpresa() {
           detalhesEmpresa.innerHTML += `<p><strong>${key}:</strong> ${empresa[key]}</p>`;
         }
       }
+      const confirmarBtn = document.getElementById('confirmar-btn');
+      confirmarBtn.style.display = 'block';
 
-      // Abrir a janela modal
       document.getElementById('modal').style.display = 'block';
     })
     .catch(error => {
       console.error('Erro ao obter empresa:', error);
+
+      const detalhesEmpresa = document.getElementById('detalhes-empresa');
+      detalhesEmpresa.innerHTML = `<p><strong>${error.message}</strong></p>`;
+      detalhesEmpresa.innerHTML += '<button id="voltar-btn">Voltar</button>'; // Adiciona o botão "Voltar"
+      document.getElementById('modal').style.display = 'block';
+
+      const voltarBtn = document.getElementById('voltar-btn');
+      voltarBtn.addEventListener('click', () => {
+        document.getElementById('modal').style.display = 'none';
+        cnpjInput.value = ''; // Limpa o valor do CNPJ
+      });
+
+      const confirmarBtn = document.getElementById('confirmar-btn');
+      confirmarBtn.style.display = 'none';
     });
 }
+
 
 function confirmarCadastro() {
     const cnpjInput = document.getElementById('cnpj-input');
     const cnpj = cnpjInput.value;
 
-    // Salvar os dados no banco de dados
+
     fetch('/empresas', {
         method: 'POST',
         headers: {
@@ -57,7 +78,6 @@ function confirmarCadastro() {
             throw new Error('Erro ao cadastrar empresa');
         }
         const confirmacaoCadastro = document.getElementById('confirmacao-cadastro');
-        confirmacaoCadastro.innerHTML = '<h3>Empresa cadastrada com sucesso</h3>';
 
         listarEmpresas();
         cnpjInput.value = '';

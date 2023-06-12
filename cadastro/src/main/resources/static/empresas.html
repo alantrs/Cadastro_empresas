@@ -9,112 +9,150 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f2f2f2;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f2f2f2;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      table-layout: fixed;
+    }
 
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
+    th,
+    td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        thead {
-            background-color: #f9f9f9;
-        }
+    thead {
+      background-color: #f9f9f9;
+    }
 
-        tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
 
-        .search-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
+    .search-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
 
-        .search-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+    .search-input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-        .search-button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+    .search-button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2; /* Z-index maior para o modal */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 600px;
-            position: relative;
-        }
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+    }
 
-        .modal-close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .modal-close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #888;
+    }
 
-        .search-input-group {
-            display: flex;
-            align-items: center;
-        }
+    .search-input-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .search-icon {
-            margin-right: 10px;
-        }
+    .search-icon {
+      margin-right: 10px;
+    }
 
-        .back-button {
-            margin-top: 10px;
-        }
-    </style>
+    .back-button {
+      margin-left: 5px;
+    }
+
+    .back-button:hover {
+      background-color: #721c24;
+    }
+
+    .cadastrar-button {
+      margin-left: auto;
+      padding: 8px 16px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .cadastrar-button:hover {
+      background-color: #218838;
+    }
+
+    .table-responsive {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -123,29 +161,38 @@
 
     <div class="search-input-group">
         <div class="search-icon">&#128269;</div>
-        <input type="text" id="search-cnpj-input" class="search-input" placeholder="Digite o CNPJ da empresa">
-        <button id="search-cnpj-button" class="search-button">&#128269;</button>
-        <button id="back-cnpj-button" class="back-button d-none">Voltar</button>
+        <input type="text" id="search-cnpj-input" class="search-input form-control"
+               placeholder="Digite o CNPJ da empresa">
+        <div class="input-group-append">
+            <button id="search-cnpj-button" class="search-button btn btn-primary">Pesquisar</button>
+            <button id="back-cnpj-button" class="back-button d-none btn btn-secondary">Voltar</button>
+        </div>
     </div>
-    <p id="error-message-cnpj" class="text-danger"></p>
 
-    <div class="search-input-group">
+    <div class="search-input-group mt-3">
         <div class="search-icon">&#128269;</div>
-        <input type="text" id="search-name-input" class="search-input" placeholder="Digite a Razão social da empresa">
-        <button id="search-name-button" class="search-button">&#128269;</button>
-        <button id="back-name-button" class="back-button d-none">Voltar</button>
+        <input type="text" id="search-name-input" class="search-input form-control"
+               placeholder="Digite a Razão Social da empresa">
+        <div class="input-group-append">
+            <button id="search-name-button" class="search-button btn btn-primary">Pesquisar</button>
+            <button id="back-name-button" class="back-button d-none btn btn-secondary">Voltar</button>
+        </div>
     </div>
-    <p id="error-message-name" class="text-danger"></p>
 
-    <table id="empresas-table">
-        <thead>
-        <tr>
-            <th>CNPJ</th>
-            <th>Razão Social</th>
-        </tr>
-        </thead>
-        <tbody id="empresas-body"></tbody>
-    </table>
+    <div class="text-center">
+        <div class="table-responsive">
+            <table id="empresas-table" class="table">
+                <thead>
+                <tr>
+                    <th>CNPJ</th>
+                    <th>Razão Social</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="empresas-body"></tbody>
+            </table>
+        </div>
+    </div>
 
     <div id="empresa-modal" class="modal">
         <div class="modal-content">
@@ -153,10 +200,24 @@
             <div id="empresa-modal-body"></div>
         </div>
     </div>
+
+    <button id="cadastrar-button" class="cadastrar-button btn btn-primary">Cadastrar</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="empresas.js"></script>
+
+<script>
+    // Abre o modal quando o botão "Ver Dados" é clicado
+    $(document).on('click', '.ver-dados-button', function () {
+      $('#empresa-modal').show();
+    });
+
+    // Fecha o modal quando o botão "Fechar" é clicado
+    $(document).on('click', '.modal-close-button', function () {
+      $('#empresa-modal').hide();
+    });
+  </script>
 </body>
 
 </html>

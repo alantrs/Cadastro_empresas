@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,8 +87,37 @@
         #detalhes-empresa {
             margin-bottom: 10px;
         }
+
+        .visualizar-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .visualizar-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .visualizar-btn span {
+            display: inline-block;
+            transition: opacity 0.3s;
+        }
+
+        .visualizar-btn:hover span {
+            opacity: 1;
+        }
     </style>
 </head>
+
 <body>
 <div class="container">
     <h1>Cadastro de Empresa</h1>
@@ -95,7 +125,9 @@
     <input type="text" id="cnpj-input" placeholder="Digite o CNPJ">
     <button id="cadastrar-btn">Cadastrar</button>
     <div id="confirmacao-cadastro"></div>
+    <a href="empresas.html" class="visualizar-btn">Visualizar Empresas Cadastradas</a>
 </div>
+
 <div id="modal" class="modal">
     <div class="modal-content">
         <h3>Detalhes da Empresa</h3>
@@ -105,4 +137,5 @@
 </div>
 <script src="script.js"></script>
 </body>
+
 </html>
