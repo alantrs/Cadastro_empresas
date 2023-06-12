@@ -22,10 +22,6 @@ public class EmpresaController {
     }
     @PostMapping
     public ResponseEntity<Empresa> cadastrarEmpresa(@RequestBody String cnpj) {
-        boolean empresaExists = empresaRepository.existsByCnpj(cnpj);
-        if (empresaExists) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Retorna um código de status de conflito (409)
-        }
         Empresa empresa = cnpjService.consultarCnpj(cnpj);
 
         for (Qsa qsa : empresa.getQsa()) {
