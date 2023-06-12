@@ -30,5 +30,9 @@ Compile e execute o projeto.
 
 Acesse localhost:8080/index.html.
 
-### Mockup 
+### Mockup
+![gif](https://github.com/alantrs/Cadastro_empresas/blob/e8770de7fae3be1fda47f3f6d98c1ac9d7f4c4dd/imagens/Mockup.gif)
+
+### Modelagem de dados
+![modelagem](https://github.com/alantrs/Cadastro_empresas/blob/e8770de7fae3be1fda47f3f6d98c1ac9d7f4c4dd/imagens/Modelagem%20de%20dados.png)
 
