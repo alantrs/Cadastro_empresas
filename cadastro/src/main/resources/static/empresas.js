@@ -26,7 +26,6 @@ function carregarEmpresas() {
         empresasBody.appendChild(row);
       });
 
-      // Oculta os botões de voltar
       const backCnpjButton = document.getElementById('back-cnpj-button');
       const backNameButton = document.getElementById('back-name-button');
       backCnpjButton.classList.add('d-none');
@@ -56,7 +55,7 @@ function exibirDadosEmpresa(cnpj) {
         const value = empresa[key];
         if (value !== null && value !== "") {
           if (Array.isArray(value)) {
-            // Trata arrays especiais (qsa, cnaes_secundarios)
+
             if (value.length > 0) {
               modalBody.innerHTML += `<h5>${key}:</h5>`;
               value.forEach(item => {
@@ -71,7 +70,7 @@ function exibirDadosEmpresa(cnpj) {
               });
             }
           } else {
-            // Trata os demais campos
+
             modalBody.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
           }
         }

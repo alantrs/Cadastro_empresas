@@ -5,7 +5,7 @@ function cadastrarEmpresa() {
   fetch(`empresas/confirmarEmpresa?cnpj=${cnpj}`)
     .then(response => {
       if (!response.ok) {
-        throw new Error('Insira um cnpj válido');
+        throw new Error('Insira um CNPJ válido');
       }
       return response.json();
     })
@@ -14,28 +14,52 @@ function cadastrarEmpresa() {
       detalhesEmpresa.innerHTML = '';
 
       for (const key in empresa) {
-        if (key === 'qsa') {
-          const qsaItems = empresa.qsa.map(qsaItem => {
-            let qsaHtml = '';
-            for (const qsaKey in qsaItem) {
-              qsaHtml += `<strong>${qsaKey}:</strong> ${qsaItem[qsaKey]} `;
-            }
-            return `<p>${qsaHtml}</p>`;
-          });
-          detalhesEmpresa.innerHTML += '<h5>QSA:</h5>' + qsaItems.join('');
-        } else if (key === 'cnaes_secundarios') {
-          const cnaeItems = empresa.cnaes_secundarios.map(cnaeItem => {
-            let cnaeHtml = '';
-            for (const cnaeKey in cnaeItem) {
-              cnaeHtml += `<strong>${cnaeKey}:</strong> ${cnaeItem[cnaeKey]} `;
-            }
-            return `<p>${cnaeHtml}</p>`;
-          });
-          detalhesEmpresa.innerHTML += '<h5>CNAEs Secundários:</h5>' + cnaeItems.join('');
-        } else {
-          detalhesEmpresa.innerHTML += `<p><strong>${key}:</strong> ${empresa[key]}</p>`;
+        if (key !== 'qsa' && key !== 'cnaes_secundarios') {
+          const value = empresa[key];
+          if (value !== null && value !== "") {
+            detalhesEmpresa.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+          }
         }
       }
+
+      const qsaItems = empresa.qsa.map(qsaItem => {
+        let qsaHtml = '';
+        for (const qsaKey in qsaItem) {
+          const qsaValue = qsaItem[qsaKey];
+          if (qsaValue !== null && qsaValue !== "") {
+            qsaHtml += `<strong>${qsaKey}:</strong> ${qsaValue} `;
+          }
+        }
+        if (qsaHtml !== '') {
+          return `<p>${qsaHtml}</p>`;
+        } else {
+          return '';
+        }
+      });
+      const qsaHtml = qsaItems.join('');
+      if (qsaHtml !== '') {
+        detalhesEmpresa.innerHTML += '<h5>QSA:</h5>' + qsaHtml;
+      }
+
+      const cnaeItems = empresa.cnaes_secundarios.map(cnaeItem => {
+        let cnaeHtml = '';
+        for (const cnaeKey in cnaeItem) {
+          const cnaeValue = cnaeItem[cnaeKey];
+          if (cnaeValue !== null && cnaeValue !== "") {
+            cnaeHtml += `<strong>${cnaeKey}:</strong> ${cnaeValue} `;
+          }
+        }
+        if (cnaeHtml !== '') {
+          return `<p>${cnaeHtml}</p>`;
+        } else {
+          return '';
+        }
+      });
+      const cnaeHtml = cnaeItems.join('');
+      if (cnaeHtml !== '') {
+        detalhesEmpresa.innerHTML += '<h5>CNAEs Secundários:</h5>' + cnaeHtml;
+      }
+
       const confirmarBtn = document.getElementById('confirmar-btn');
       confirmarBtn.style.display = 'block';
 
@@ -59,7 +83,6 @@ function cadastrarEmpresa() {
       confirmarBtn.style.display = 'none';
     });
 }
-
 
 function confirmarCadastro() {
     const cnpjInput = document.getElementById('cnpj-input');
