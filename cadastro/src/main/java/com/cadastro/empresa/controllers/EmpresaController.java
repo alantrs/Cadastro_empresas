@@ -5,9 +5,9 @@ import com.cadastro.empresa.models.Empresa;
 import com.cadastro.empresa.models.Qsa;
 import com.cadastro.empresa.repository.EmpresaRepository;
 import com.cadastro.empresa.services.CnpjService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
