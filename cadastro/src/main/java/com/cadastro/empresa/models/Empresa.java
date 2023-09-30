@@ -19,12 +19,10 @@ import java.util.List;
 @AllArgsConstructor
 public class Empresa implements Serializable{
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-    private List<Cnaes> cnaes_secundarios;
-    private String uf;
-    private Integer cep;
     @Id
     private String cnpj;
+    private String uf;
+    private Integer cep;
     private String pais;
     private String email;
     private String porte;
@@ -42,12 +40,12 @@ public class Empresa implements Serializable{
     private Integer capitalSocial;
     private String dddTelefone1;
     private String dddTelefone2;
-    private boolean opcaoPeloMei;
+    private Boolean opcaoPeloMei;
     private String descricaoPorte;
     private Integer codigoMunicipio;
     private String naturezaJuridica;
     private String situacaoEspecial;
-    private boolean opcaoPeloSimples;
+    private Boolean opcaoPeloSimples;
     private Integer situacaoCadastral;
     private String dataOpcaoPeloMei;
     private String dataExclusaoDoMei;
@@ -70,7 +68,11 @@ public class Empresa implements Serializable{
     private String descricaoIdentificadorMatrizFilial;
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    private List<Cnaes> cnaes_secundarios;
+
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<Qsa> qsa;
+
+
 
 }
